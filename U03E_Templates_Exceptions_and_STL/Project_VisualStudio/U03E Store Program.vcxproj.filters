@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataStructure">
+      <UniqueIdentifier>{1fdf1059-fef8-4acb-8453-b59b68d6249c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{0cb552fa-8ffa-44b2-92cf-798c2d9a423e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{1abc18fa-7dcd-4d0d-89d0-fb3948d8390d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SAVEDATA">
+      <UniqueIdentifier>{ed483f5e-2dd6-4e6a-b589-17cb3e24c07e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StoreProgram">
+      <UniqueIdentifier>{1b35ba8b-d943-4ba0-8127-0b8e3c6e88bf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\SAVEDATA\data.txt">
+      <Filter>SAVEDATA</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\StoreProgram\Product.h">
+      <Filter>StoreProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\StoreProgram\Program.h">
+      <Filter>StoreProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\StoreProgram\ShoppingCart.h">
+      <Filter>StoreProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\StoreProgram\Store.h">
+      <Filter>StoreProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utilities\Helper.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataStructure\MyVector.h">
+      <Filter>DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Exceptions\MemoryAlreadyAllocatedException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Exceptions\ProductNotFoundException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\StoreProgram\Program.cpp">
+      <Filter>StoreProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\StoreProgram\ShoppingCart.cpp">
+      <Filter>StoreProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\StoreProgram\Store.cpp">
+      <Filter>StoreProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Helper.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\main.cpp" />
+  </ItemGroup>
+</Project>

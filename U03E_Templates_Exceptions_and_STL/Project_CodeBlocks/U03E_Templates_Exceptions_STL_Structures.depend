@@ -1,0 +1,66 @@
+# depslib dependency file v1.0
+1641668395 source:/media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/main.cpp
+	<iostream>
+	"StoreProgram/Program.h"
+
+1643233046 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/Program.h
+	"Store.h"
+	"ShoppingCart.h"
+
+1643233023 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/Store.h
+	<map>
+	<string>
+	"Product.h"
+
+1643233031 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/Product.h
+	<string>
+
+1643233026 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/ShoppingCart.h
+	<vector>
+	"Product.h"
+	"../DataStructure/MyVector.h"
+
+1643233275 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/DataStructure/MyVector.h
+	"../Exceptions/MemoryAlreadyAllocatedException.h"
+
+1641670610 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/Exceptions/MemoryAlreadyAllocatedException.h
+	<stdexcept>
+
+1643233254 source:/media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/Program.cpp
+	"Program.h"
+	<iostream>
+	<iomanip>
+	<string>
+	"../Exceptions/ProductNotFoundException.h"
+
+1641668506 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/Exceptions/ProductNotFoundException.h
+	<stdexcept>
+
+1643233007 source:/media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/ShoppingCart.cpp
+	"ShoppingCart.h"
+	<iostream>
+	<iomanip>
+
+1643233003 source:/media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/StoreProgram/Store.cpp
+	"Store.h"
+	<iostream>
+	<fstream>
+	<iomanip>
+	"../Utilities/Helper.hpp"
+	"../Exceptions/ProductNotFoundException.h"
+
+1643232434 /media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/Utilities/Helper.hpp
+	<iostream>
+	<iomanip>
+	<chrono>
+	<thread>
+	<string>
+	<sstream>
+	<vector>
+	<fstream>
+	<cstdlib>
+	<ctime>
+
+1643232450 source:/media/rwss/Rachel/TEACHING/2022-01_SPRING/cs235-student/U03E_Templates_Exceptions_and_STL/Utilities/Helper.cpp
+	"Helper.hpp"
+

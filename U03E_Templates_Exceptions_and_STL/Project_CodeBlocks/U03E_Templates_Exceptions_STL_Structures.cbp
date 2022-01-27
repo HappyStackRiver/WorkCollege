@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="U03E_Templates_Exceptions_STL_Structures" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./U03E_Templates_Exceptions_STL_Structures_exe" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="./U03E_Templates_Exceptions_STL_Structures_exe" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../DataStructure/MyVector.h" />
+		<Unit filename="../Exceptions/MemoryAlreadyAllocatedException.h" />
+		<Unit filename="../Exceptions/ProductNotFoundException.h" />
+		<Unit filename="../StoreProgram/Product.h" />
+		<Unit filename="../StoreProgram/Program.cpp" />
+		<Unit filename="../StoreProgram/Program.h" />
+		<Unit filename="../StoreProgram/ShoppingCart.cpp" />
+		<Unit filename="../StoreProgram/ShoppingCart.h" />
+		<Unit filename="../StoreProgram/Store.cpp" />
+		<Unit filename="../StoreProgram/Store.h" />
+		<Unit filename="../Utilities/Helper.cpp" />
+		<Unit filename="../Utilities/Helper.hpp" />
+		<Unit filename="../main.cpp" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
