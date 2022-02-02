@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "67b6d2f0-5f89-49ab-b967-18c8f1223d7c": {
+      "ProjectGuid": "67b6d2f0-5f89-49ab-b967-18c8f1223d7c",
+      "DisplayName": "CppReview",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}

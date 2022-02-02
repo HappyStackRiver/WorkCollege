@@ -1,0 +1,7 @@
+﻿  main.cpp
+C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\main.cpp(110,24): warning C4129: 's': unrecognized character escape sequence
+C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\main.cpp(110,24): warning C4129: 'G': unrecognized character escape sequence
+C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\main.cpp(110,24): warning C4129: 'c': unrecognized character escape sequence
+C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\main.cpp(110,24): warning C4129: 'C': unrecognized character escape sequence
+C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\main.cpp(110,24): warning C4129: 'i': unrecognized character escape sequence
+  CppReview.vcxproj -> C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\CppReview\x64\Debug\CppReview.exe
