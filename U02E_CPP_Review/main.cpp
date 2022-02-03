@@ -27,12 +27,25 @@ void ImageOperation1( const string IMAGE_PATH )
     image.setPixel(9, 0, 225, 255, 225);
     image.setPixel(9, 9, 0, 255, 0);
     image.setPixel(0, 9, 0, 0, 225);
-    
+
     // TODO: Add
 
     DisplayLog( "Save the image" );
-    image.saveImage("Test.txt");
+    // NOTE: This should be a ppm file -- Rachel
+//    image.saveImage("Test.txt");
+    image.saveImage("Test.ppm");
     // TODO: Add
+
+
+    // NOTE:
+//    The image drawn here is malformed. The file looks like this:
+//    P3
+//    # Comment
+//    80 1
+//    183956980             << bad color depth
+//    0
+//    0
+//    0
 }
 
 void ImageOperation2( const string IMAGE_PATH )
@@ -77,8 +90,18 @@ void ImageOperation3( const string IMAGE_PATH )
     // TODO: Add
 
     DisplayLog("Save the image");
-    image.saveImage("drawn.txt");
+    // NOTE: This should be a ppm file -- Rachel
+//    image.saveImage("drawn.txt");
+    image.saveImage("drawn.ppm");
     // TODO: Add
+
+    // NOTE:
+//    The image drawn here is malformed. The file looks like this:
+//    P3
+//    # Comment
+//    0 1734438249              << bad image height
+//    1966044005                << bad color depth
+
 
 }
 
@@ -107,10 +130,17 @@ void ImageOperation4( const string IMAGE_PATH )
 
 int main()
 {
-    string imagePath = "C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\CppReview\CppReview\images";
-    //The Directory path is not able to be read for some reason and I think it's due to the permissions I have set to my computer but if this directory is input in the following
+//    string imagePath = "C:\Users\reyri\source\GitLabRepository\cs235_350-rriver10\U02E_CPP_Review\CppReview\CppReview\images";
+    string imagePath = "images/";
+    //The Directory path is not able to be read for some reason and I think it's due to the permissions I have set to my
+    //computer but if this directory is input in the following
     //getline portion it works
-    
+
+    // NOTE: You probably need to write it as "images\\" since it's on Windows.
+    // But remember that the \ is the escape character (e.g., \n, \t), so to get
+    // a backslash you have to use \\.
+    // -- Rachel
+
     cout << "Enter path to images directory: ";
     getline( cin, imagePath );
 

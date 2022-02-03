@@ -13,12 +13,20 @@ PpmImage::PpmImage()
 PpmImage::PpmImage(int colorDepthInput, int widthInput, int heightInput)
 {
 	m_pixels = nullptr;
-	setup(colorDepth, width, height);
+	// NOTE: You should be passing in colorDepthInput, widthInput, and heightInput here.
+	// instead, you're passing in the *private member variables* to the setup function,
+	// which makes your image files badly formed because uninitialized variables just
+	// store garbage.
+	// setup(colorDepth, width, height);
+	setup( colorDepthInput, widthInput, heightInput );
+	// -- Rachel
 }
 
 PpmImage::~PpmImage()
 {
-
+    // NOTE: Make sure to call DeallocateMemory here!
+    deallocateMemory();
+    // -- Rachel
 }
 
 void PpmImage::setup(int colorDepthInput, int widthInput, int heightInput)
@@ -66,6 +74,9 @@ bool PpmImage::saveImage(const string& filename)
 	output << "P3" << endl;
 	output << "# Comment" << endl;
 	output << width << " ";
+	// NOTE: You're missing the height output
+	output << height << endl;
+	// -- Rachel
 	output << colorDepth << endl;
 
 	for (size_t i = 0; i < arraySize; i++)
@@ -73,7 +84,6 @@ bool PpmImage::saveImage(const string& filename)
 		output << m_pixels[i].r << endl;
 		output << m_pixels[i].g << endl;
 		output << m_pixels[i].b << endl;
-
 	}
 }
 
@@ -139,11 +149,13 @@ void PpmImage::allocateMemory(int sizeInput)
 	if (m_pixels != nullptr)
 	{
 		cout << "Error: Memory Already Allocated!" << endl;
+		// NOTE: Make sure to return here, we don't want to continue if memory is already allocated.
+		return;
+		// -- Rachel
 	}
 
 	m_pixels = new Pixel[sizeInput];
 	arraySize = sizeInput;
-
 }
 
 void PpmImage::deallocateMemory()
