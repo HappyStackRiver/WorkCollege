@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataStructure">
+      <UniqueIdentifier>{6fab0f26-9b46-451c-9acb-db4e6578a9a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{d08cd335-afbf-4fb2-8207-5e0c05182833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Functions">
+      <UniqueIdentifier>{87ab4490-fd89-4ac1-946a-7412d344eb99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{34fc2c98-a1ab-41f3-bfe4-78f78a830df3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\DataStructure\MyVectorTests.cpp">
+      <Filter>DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Helper.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DataStructure\MyVector.h">
+      <Filter>DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataStructure\MyVectorTests.h">
+      <Filter>DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Exceptions\MemoryAlreadyAllocatedException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Functions\Functions.h">
+      <Filter>Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Functions\FunctionsTests.h">
+      <Filter>Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utilities\Helper.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
