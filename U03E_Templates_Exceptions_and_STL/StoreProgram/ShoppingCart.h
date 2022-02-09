@@ -17,7 +17,7 @@ public:
     float GetTotalCost()                        const;
 
 private:
-    vector<Product> m_cart;
+    MyVector<Product> m_cart;
 };
 
 #endif
