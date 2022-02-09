@@ -20,12 +20,12 @@ Program::~Program()
 void Program::Setup() noexcept
 {
     m_storeName = "OVERLAND PIZZA";
-    // TODO: Store -- load data
+    m_store.LoadData();
 }
 
 void Program::Cleanup() noexcept
 {
-    // TODO: Store -- save data
+    m_store.SaveData();
 }
 
 void Program::Start() noexcept
@@ -104,13 +104,13 @@ void Program::Run_Admin() noexcept
 void Program::DisplayStoreInventory() const noexcept
 {
     cout << endl << string( 80, '-' ) << endl << "STORE INVENTORY:" << endl;
-    // TODO: Store -- display
+    m_store.Display();
 }
 
 void Program::DisplayYourCart() const noexcept
 {
     cout << endl << string( 80, '-' ) << endl << "YOUR CART:" << endl;
-    // TODO: Shopping Cart -- display
+    m_shoppingCart.Display();
 }
 
 void Program::DisplayOptions_Admin() const noexcept
@@ -166,13 +166,13 @@ void Program::Menu_AddProduct() noexcept
     cout << "What is the UNIQUE ID of the product? ...";
     cin >> id;
 
-    // TODO: Store -- Check if product already has id
-//    while ( m_store.HasProduct( id ) )
-//    {
-//        cout << "ERROR: that unique ID is already in use by another product!" << endl;
-//        cout << endl << "What is the UNIQUE ID of the item? ";
-//        cin >> id;
-//    }
+ 
+    while ( m_store.HasProduct( id ) )
+    {
+        cout << "ERROR: that unique ID is already in use by another product!" << endl;
+        cout << endl << "What is the UNIQUE ID of the item? ";
+        cin >> id;
+    }
 
     cout << "What is the name of the product? ........";
     cin.ignore();
@@ -181,8 +181,8 @@ void Program::Menu_AddProduct() noexcept
     cout << "What is the price of the product? .......$";
     cin >> price;
 
-    // TODO: Store -- Add product
-//    m_store.AddProduct( id, name, price );
+
+    m_store.AddProduct( id, name, price );
 
     cout << endl << "Product added." << endl;
     HitEnterToContinue();
@@ -201,8 +201,9 @@ void Program::Menu_EditProduct() noexcept
     int choice = Get_IntBetweenRange( 1, 2 );
 
     // TODO: Store -- Get product, store name and price in these local variables
-    string name;
-    float price;
+
+    string name = m_store.GetProductById(id).name;
+    float price = m_store.GetProductById(id).price;
 
     if ( choice == 1 )
     {
@@ -216,15 +217,15 @@ void Program::Menu_EditProduct() noexcept
         cin >> price;
     }
 
-    //try
-    //{
-    //    // TODO: Store -- update product
-    //}
-    //catch( const ProductNotFoundException& ex )
-    //{
-    //    cout << "** ERROR: " << ex.what() << endl;
-    //    return;
-    //}
+    try
+    {
+        m_store.UpdateProduct(id, name, price);
+    }
+    catch( const ProductNotFoundException& ex )
+    {
+        cout << "** ERROR: " << ex.what() << endl;
+        return;
+    }
 
     cout << endl << "Product updated." << endl;
     HitEnterToContinue();
@@ -237,15 +238,15 @@ void Program::Menu_RemoveProduct() noexcept
 
     int id = Get_ProductId();
 
-    //try
-    //{
-    //    // TODO: Store -- remove product
-    //}
-    //catch( const ProductNotFoundException& ex )
-    //{
-    //    cout << "** ERROR: " << ex.what() << endl;
-    //    return;
-    //}
+    try
+    {
+        m_store.RemoveProduct(id);
+    }
+    catch( const ProductNotFoundException& ex )
+    {
+        cout << "** ERROR: " << ex.what() << endl;
+        return;
+    }
 
     cout << endl << "Product updated." << endl;
     HitEnterToContinue();
@@ -259,7 +260,7 @@ void Program::Menu_Checkout() noexcept
     DisplayYourCart();
 
     // TODO: Shopping cart -- get total cost
-    float totalCost = 0;
+    float totalCost = m_shoppingCart.GetTotalCost();
     const float TAX = 0.091;                                // OP KS tax rate is 9.1%
     float pricePlusTax = totalCost + ( totalCost * TAX );
 
@@ -281,6 +282,7 @@ void Program::Menu_AddProductToCart() noexcept
 
     // TODO: Store -- Get product by id
     // TODO: Shopping cart -- add product to cart
+    m_shoppingCart.AddToCart(m_store.GetProductById(id));
 
     cout << endl << "Product added to cart." << endl;
     HitEnterToContinue();
@@ -293,8 +295,9 @@ void Program::Menu_RemoveProductFromCart() noexcept
 
     DisplayYourCart();
     // TODO: Shopping cart -- get item count
-    //int index = Get_IntBetweenRange( 1, m_shoppingCart.GetItemCount() ) - 1;
-    int index = -1; // remove me
+    int index = Get_IntBetweenRange( 1, m_shoppingCart.GetItemCount() ) - 1;
+
+    m_shoppingCart.RemoveFromCart(index);
 
     // TODO: Shopping cart -- remove item from cart
 

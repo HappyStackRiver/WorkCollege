@@ -4,6 +4,10 @@
 #include <stdexcept>
 using namespace std;
 
-
+class ProductNotFoundException : public runtime_error
+{
+public:
+    ProductNotFoundException(string errorMessage) : runtime_error(errorMessage.c_str()) { /* nothing else to do */ }
+};
 
 #endif

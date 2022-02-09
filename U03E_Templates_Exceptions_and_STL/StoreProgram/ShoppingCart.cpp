@@ -18,7 +18,8 @@ void ShoppingCart::Display() const
 {
     if (m_cart.size() == 0)
     {
-        throw std::logic_error("The cart is empty");
+        cout << "The cart is empty";
+        return;
     }
 
     cout << left
@@ -51,4 +52,5 @@ float ShoppingCart::GetTotalCost() const
     {
         totalCosts = totalCosts + m_cart[i].price;
     }
+    return totalCosts;
 }
