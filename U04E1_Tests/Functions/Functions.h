@@ -13,22 +13,37 @@ bool IsOverdrawn(float balance)
 
 float AdjustIngredient( float originalAmount, float batches )
 {
-    return false; // TODO: Update me!
+    return originalAmount * batches; // TODO: Update me!
 }
 
 bool IsInputValid( int choice, int min, int max )
 {
-    return false; // TODO: Update me!
+    if (choice <= max && choice >= min)
+    {
+        return true;
+    }
+    else
+        return false; // TODO: Update me!
 }
 
 float Average( float arr[], int arraySize )
 {
-    return 0; // TODO: Update me!
+    float sum = 0;
+    for (int i = 0; i < arraySize; i++)
+    {
+        sum = sum + arr[i];
+    }
+    return sum / arraySize; // TODO: Update me!
 }
 
 int Summation( int n )
 {
-    return 0; // TODO: Update me!
+    int sum = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        sum = sum + i;
+    }
+    return sum; // TODO: Update me!
 }
 
 #endif

@@ -78,6 +78,11 @@ void Test_IsOverdrawn()
 void Test_AdjustIngredients()
 {
     cout << endl << string( 80, '-' ) << endl << "Test_AdjustIngredients" << endl;
+    cout << "Test 1" << endl;
+    cout << "Original Amount 6 batches 2 results in " << AdjustIngredient(6, 2) << endl;
+
+    cout << "Test 2" << endl;
+    cout << "Original Amount 5 batches .5 results in " << AdjustIngredient(5, .5) << endl;
 
 }
 
@@ -110,6 +115,55 @@ void Test_IsInputValid()
         }
     } // End test 1
 
+    { // Begin test 2
+        cout << endl << "Test 1:" << endl;
+        int input_choice = 0;
+        int input_min = 1;
+        int input_max = 10;
+        bool expectedOutput = false;
+        bool actualOutput = IsInputValid(input_choice, input_min, input_max);
+
+        cout << "- input_choice: " << input_choice << endl;
+        cout << "- input_min: " << input_min << endl;
+        cout << "- input_max: " << input_max << endl;
+        cout << "- expectedOutput: " << expectedOutput << endl;
+        cout << "- actualOutput: " << actualOutput << endl;
+        cout << "Result: ";
+
+        if (actualOutput == expectedOutput)
+        {
+            cout << "PASS" << endl;
+        }
+        else
+        {
+            cout << "FAIL" << endl;
+        }
+    } // End test 2
+
+    { // Begin test 3
+        cout << endl << "Test 3:" << endl;
+        int input_choice = 12;
+        int input_min = 1;
+        int input_max = 10;
+        bool expectedOutput = false;
+        bool actualOutput = IsInputValid(input_choice, input_min, input_max);
+
+        cout << "- input_choice: " << input_choice << endl;
+        cout << "- input_min: " << input_min << endl;
+        cout << "- input_max: " << input_max << endl;
+        cout << "- expectedOutput: " << expectedOutput << endl;
+        cout << "- actualOutput: " << actualOutput << endl;
+        cout << "Result: ";
+
+        if (actualOutput == expectedOutput)
+        {
+            cout << "PASS" << endl;
+        }
+        else
+        {
+            cout << "FAIL" << endl;
+        }
+    } // End test 3
 }
 
 void Test_Average()
@@ -120,7 +174,7 @@ void Test_Average()
         cout << endl << "Test 1:" << endl;
         float input_arr[] = { 0.5, 0.25, 0.25, 1.5 };
         int input_arraySize = 4;
-        float expectedOutput = 2.5;
+        float expectedOutput = .625;
         float actualOutput = Average( input_arr, input_arraySize );
 
         cout << "- input_arr: " << Helper::ArrayToString( input_arr, input_arraySize ) << endl;
@@ -144,7 +198,11 @@ void Test_Average()
 void Test_Summation()
 {
     cout << endl << string( 80, '-' ) << endl << "Test_Summation" << endl;
+    cout << "Test 1" << endl;
+    cout << "summation of 5 is " << Summation(5) << endl;
 
+    cout << "Test 2" << endl;
+    cout << "summation of 100 is " << Summation(100) << endl;
 }
 
 #endif
