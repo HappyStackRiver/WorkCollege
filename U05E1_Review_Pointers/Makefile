@@ -27,7 +27,7 @@ LIB_DEBUG = $(LIB)
 LDFLAGS_DEBUG = $(LDFLAGS)
 OBJDIR_DEBUG = obj/Debug
 DEP_DEBUG = 
-OUT_DEBUG = ./U05E_Review_Pointers_EXE
+OUT_DEBUG = ./U05E_exe
 
 INC_RELEASE = $(INC)
 CFLAGS_RELEASE = $(CFLAGS) -O2
@@ -38,11 +38,11 @@ LIB_RELEASE = $(LIB)
 LDFLAGS_RELEASE = $(LDFLAGS) -s
 OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
-OUT_RELEASE = ./U05E_Review_Pointers_EXE
+OUT_RELEASE = ./U05E_exe
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/u05e1.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/Functions.o $(OBJDIR_DEBUG)/u05e1.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/u05e1.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/Functions.o $(OBJDIR_RELEASE)/u05e1.o
 
 all: debug release
 
@@ -58,6 +58,9 @@ debug: before_debug out_debug after_debug
 
 out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG)  $(LDFLAGS_DEBUG) $(LIB_DEBUG)
+
+$(OBJDIR_DEBUG)/Functions.o: Functions.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Functions.cpp -o $(OBJDIR_DEBUG)/Functions.o
 
 $(OBJDIR_DEBUG)/u05e1.o: u05e1.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c u05e1.cpp -o $(OBJDIR_DEBUG)/u05e1.o
@@ -77,6 +80,9 @@ release: before_release out_release after_release
 
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE)  $(LDFLAGS_RELEASE) $(LIB_RELEASE)
+
+$(OBJDIR_RELEASE)/Functions.o: Functions.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Functions.cpp -o $(OBJDIR_RELEASE)/Functions.o
 
 $(OBJDIR_RELEASE)/u05e1.o: u05e1.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c u05e1.cpp -o $(OBJDIR_RELEASE)/u05e1.o
