@@ -199,10 +199,10 @@ void Test_Summation()
 {
     cout << endl << string( 80, '-' ) << endl << "Test_Summation" << endl;
     cout << "Test 1" << endl;
-    cout << "summation of 5 is " << Summation(5) << endl;
+    cout << "Summation of 5 is " << Summation(5) << endl;
 
     cout << "Test 2" << endl;
-    cout << "summation of 100 is " << Summation(100) << endl;
+    cout << "Summation of 100 is " << Summation(100) << endl;
 }
 
 #endif
