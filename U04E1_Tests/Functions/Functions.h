@@ -1,9 +1,14 @@
 #ifndef _FUNCTIONS_H
 #define _FUNCTIONS_H
 
-bool IsOverdrawn( float balance )
+bool IsOverdrawn(float balance)
 {
-    return false; // TODO: Update me!
+    if (balance < 0)
+    {
+        return true;
+    }
+    else
+        return false;
 }
 
 float AdjustIngredient( float originalAmount, float batches )

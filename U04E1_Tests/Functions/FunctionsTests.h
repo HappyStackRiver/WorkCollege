@@ -32,6 +32,47 @@ void Test_IsOverdrawn()
         }
     } // End test 1
 
+    { // Begin test 2
+        cout << endl << "Test 2:" << endl;
+        float input_balance = 0;
+        bool expectedOutput = false;
+        bool actualOutput = IsOverdrawn(input_balance);
+
+        cout << "- input_balance: " << input_balance << endl;
+        cout << "- expectedOutput: " << expectedOutput << endl;
+        cout << "- actualOutput: " << actualOutput << endl;
+        cout << "Result: ";
+
+        if (actualOutput == expectedOutput)
+        {
+            cout << "PASS" << endl;
+        }
+        else
+        {
+            cout << "FAIL" << endl;
+        }
+    } // End test 2
+
+    { // Begin test 3
+        cout << endl << "Test 3:" << endl;
+        float input_balance = -50;
+        bool expectedOutput = true;
+        bool actualOutput = IsOverdrawn(input_balance);
+
+        cout << "- input_balance: " << input_balance << endl;
+        cout << "- expectedOutput: " << expectedOutput << endl;
+        cout << "- actualOutput: " << actualOutput << endl;
+        cout << "Result: ";
+
+        if (actualOutput == expectedOutput)
+        {
+            cout << "PASS" << endl;
+        }
+        else
+        {
+            cout << "FAIL" << endl;
+        }
+    } // End test 3
 }
 
 void Test_AdjustIngredients()
