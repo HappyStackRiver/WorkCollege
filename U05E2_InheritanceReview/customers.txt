@@ -1,0 +1,36 @@
+CUSTOMER_BEGIN
+NAME
+Tsukushi Makino
+TIER
+1
+CUSTOMER_END
+################################################
+CUSTOMER_BEGIN
+NAME
+Tsukasa Domyouji
+TIER
+0
+CUSTOMER_END
+################################################
+CUSTOMER_BEGIN
+NAME
+Rui Hanazawa
+TIER
+0
+CUSTOMER_END
+################################################
+CUSTOMER_BEGIN
+NAME
+Tuuki Matsuoka
+TIER
+1
+CUSTOMER_END
+################################################
+CUSTOMER_BEGIN
+NAME
+Kaede Domyouji
+TIER
+0
+CUSTOMER_END
+################################################
+

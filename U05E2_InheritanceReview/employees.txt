@@ -1,0 +1,36 @@
+EMPLOYEE_BEGIN
+NAME
+Geum Jan-di
+WAGE
+15.00
+STATUS
+0
+EMPLOYEE_END
+################################################
+EMPLOYEE_BEGIN
+NAME
+Gu Jun-pyo
+WAGE
+100.00
+STATUS
+2
+EMPLOYEE_END
+################################################
+EMPLOYEE_BEGIN
+NAME
+Chu Ga-eul
+WAGE
+20.00
+STATUS
+0
+EMPLOYEE_END
+################################################
+EMPLOYEE_BEGIN
+NAME
+Oh Min-ji
+WAGE
+10.00
+STATUS
+1
+EMPLOYEE_END
+################################################
