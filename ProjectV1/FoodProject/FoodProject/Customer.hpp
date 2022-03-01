@@ -19,9 +19,10 @@ class Customer
 		Customer(string, int, string, int);
 		//parameter constructor to make a new customer class with new parameters
 		
-		string getName();
-		int getPhone();
-		string getAddress();
+		string getName() const;
+		int getPhone() const;
+		string getAddress() const;
+		int getId() const;
 		//getter functions to retrieve the information stored in the class
 
 		void setName(string);
@@ -47,19 +48,24 @@ Customer::Customer(string inputName, int inputPhone, string inputAddress, int in
 	setId(inputId);
 
 }
-string Customer::getName()
+string Customer::getName() const
 {
 	return customerName;
 }
 
-int Customer::getPhone()
+int Customer::getPhone() const
 {
 	return customerPhoneNumber;
 }
 
-string Customer::getAddress()
+string Customer::getAddress() const
 {
 	return customerAddress;
+}
+
+int Customer::getId() const
+{
+	return customerId;
 }
 
 void Customer::setName(string name)

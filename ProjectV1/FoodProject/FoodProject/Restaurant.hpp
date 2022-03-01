@@ -11,18 +11,21 @@ class Restaurant
 private:
 	string restaurantName;
 	string restaurantAddress;
+	int restId;
 
 public:
 	Restaurant();//default constructor
-	Restaurant(string, string);
+	Restaurant(string, string,int);
 	//parameter constructor to make a new customer class with new parameters
 
-	string getName();
-	string getAddress();
+	string getName() const;
+	string getAddress() const;
+	int getIdRest() const;
 	//getter functions to retrieve the information stored in the class
 
 	void setName(string);
 	void setAddress(string);
+	void setId(int);
 	//setter functions to set the 
 };
 
@@ -33,20 +36,26 @@ Restaurant::Restaurant()
 	restaurantAddress = "";
 }
 
-Restaurant::Restaurant(string inputName, string inputAddress)
+Restaurant::Restaurant(string inputName, string inputAddress, int inputID)
 {
 	setName(inputName);
 	setAddress(inputAddress);
+	setId(inputID);
 }
 
-string Restaurant::getName()
+string Restaurant::getName() const
 {
 	return restaurantName;
 }
 
-string Restaurant::getAddress()
+string Restaurant::getAddress() const
 {
 	return restaurantAddress;
+}
+
+int Restaurant::getIdRest() const
+{
+	return restId;
 }
 
 void Restaurant::setName(string name)
@@ -57,5 +66,9 @@ void Restaurant::setName(string name)
 void Restaurant::setAddress(string address)
 {
 	restaurantAddress = address;
+}
+void Restaurant::setId(int inputID)
+{
+	restId = inputID;
 }
 #endif

@@ -30,10 +30,30 @@
     <ClInclude Include="QueueOrder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CsvParser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CsvParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Customers.csv">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Restaurants.csv">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

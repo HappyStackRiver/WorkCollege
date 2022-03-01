@@ -10,9 +10,16 @@ using namespace std;
 
 struct Order
 {
-	Order *nextPtr;
-	class Customer;
-	class Restaurant;
+	Customer* customerloc;
+	Restaurant* restaurantloc;
+	Order();
 };
+Order::Order()
+{
+
+	customerloc = nullptr;
+
+	restaurantloc = nullptr;
+}
 
 #endif // 

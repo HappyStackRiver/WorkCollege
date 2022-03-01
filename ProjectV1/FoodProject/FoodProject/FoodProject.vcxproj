@@ -139,14 +139,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CsvParser.hpp" />
     <ClInclude Include="Customer.hpp" />
+    <ClInclude Include="Helper.hpp" />
     <ClInclude Include="Order.hpp" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="QueueOrder.hpp" />
     <ClInclude Include="Restaurant.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CsvParser.cpp" />
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Customers.csv" />
+    <None Include="Restaurants.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
