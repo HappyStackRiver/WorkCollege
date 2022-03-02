@@ -48,7 +48,18 @@ void Program1_ExploringAddresses()
         cin >> choice;
         cout << "You entered: " << choice << endl;
 
-        // Students implement this part
+        // Students implement this part 
+        switch (choice)
+        {
+        case 1:
+            ptrInt = &int1;
+        case 2:
+            ptrInt = &int2;
+        case 3:
+            ptrInt = &int3; 
+        case 4:
+            ptrInt = nullptr;
+        }
         // If they chose 0, quit the subprogram (done = true).
         // For 1, set the pointer ptrInt to point to the address of int1.
         // For 2, point to int2.
@@ -114,6 +125,48 @@ void Program2_DereferencingPointers()
         // For option 6:
         //  * If ptrStudent is pointing to nullptr, display an error message.
         //  * otherwise, ask the user to enter a new name for the student and store it via dereferencing ptrStudent.
+
+        switch (choice)
+        {
+        case 0: 
+            done = true;
+        case 1:
+            ptrStudent = &student1;
+        case 2:
+            ptrStudent = &student2;
+        case 3:
+            ptrStudent = &student3;
+        case 4:
+            ptrStudent = nullptr;
+        case 5:
+        {
+            if (ptrStudent == nullptr)
+            {
+                cout << "Error. Nullptr" << endl;
+            }
+            else
+            {
+                cout << "The address is " << ptrStudent << endl;
+            }
+        }
+        case 6:
+        {
+            if (ptrStudent == nullptr)
+            {
+                cout << "Error. Nullptr" << endl;
+            }
+            else
+            {
+                cout << "Enter the new name: " << endl;
+                cin.ignore();
+                string input;
+                getline(cin, input);
+                *ptrStudent = input;
+                cout << "Name updated" << endl;
+            }
+        }
+        }
+        
 
         if ( choice == 0 ) { done = true; }
 
@@ -184,6 +237,57 @@ void Program3_PointersAndClasses()
         //  * if their choice was 2:
         //      * Ask them to enter a new wage. Store it at ptrEmployee->payPerHour.
 
+        switch (choice)
+        {
+        case 0:
+            done = true;
+        case 1:
+            ptrEmployee = &employee1;
+        case 2:
+            ptrEmployee = &employee2;
+        case 3:
+            ptrEmployee = &employee3;
+        case 4:
+            ptrEmployee = nullptr;
+        case 5:
+        {
+            if (ptrEmployee == nullptr)
+            {
+                cout << "Error. Nullptr" << endl;
+            }
+            else
+            {
+                ptrEmployee->Display();
+            }
+        }
+        case 6:
+            if (ptrEmployee == nullptr)
+            {
+                cout << "Error. Nullptr" << endl;
+            }
+            else
+            {
+                int input;
+                cout << "If you want to update the name, enter 1. If you want to update the pay, enter 2." << endl;
+                cin >> input;
+                if (input == 1)
+                {
+                    string newName;
+                    cin.ignore();
+                    getline(cin, newName);
+                    ptrEmployee->name = newName;
+                }
+                if (input == 2)
+                {
+                    float newPay;
+                    cin.ignore();
+                    std::cin >> newPay;
+                    ptrEmployee->payPerHour = newPay;
+                }
+            }
+        }
+        
+
         if ( choice == 0 ) { done = true; }
 
         cout << endl << endl;
@@ -206,27 +310,43 @@ void Program4_DynamicVariables()
     cout << "CREATE NODES AND LINK THEM:" << endl;
     cout << "* Create firstNode (A)" << endl;
     // Allocate space for one Node object via a pointer. Set its data value to "A".
+    Node* firstNode = new Node("A");
 
     cout << "* Create firstNode->ptrNext (B)" << endl;
     // Allocate space for another Node object via the first node's ->ptrNext pointer. Set its data value to "B".
+    firstNode->ptrNext = new Node("B");
 
     cout << "* Create firstNode->ptrNext->ptrNext (C)" << endl;
     // Allocate space for another Node object via the first node's ->ptrNext->ptrNext pointer. Set its data value to "C.
+    firstNode->ptrNext->ptrNext = new Node("C");
 
     cout << endl << "ITERATE THROUGH NODES:" << endl;
     // Create a pointer named ptrCurrent to point to the existing firstNode.
     // While ptrCurrent is not equal to nullptr, display the data of the current item (ptrCurrent->data),
     // and then traverse forwards (ptrCurrent = ptrCurrent->ptrNext).
 
+    Node* ptrCurrent = firstNode;
+    while (ptrCurrent != nullptr)
+    {
+        cout << ptrCurrent->data << endl;
+        ptrCurrent = ptrCurrent->ptrNext;
+    }
+
     cout << endl << "FREE MEMORY:" << endl;
     cout << "* Delete firstNode->ptrNext->ptrNext" << endl;
     // Free memory of the node at firstNode->ptrNext->ptrNext and afterward set it to point to nullptr
+    delete firstNode->ptrNext->ptrNext;
+    firstNode->ptrNext->ptrNext = nullptr;
 
     cout << "* Delete firstNode->ptrNext" << endl;
     // Free memory of the node at firstNode->ptrNext and afterward set it to point to nullptr
+    delete firstNode->ptrNext;
+    firstNode->ptrNext = nullptr;
 
     cout << "* Delete firstNode" << endl;
     // Free memory of the node at firstNode and afterward set it to point to nullptr
+    delete firstNode;
+    firstNode = nullptr;
 
     cout << endl << "Press ENTER to continue." << endl;
     string a;
@@ -250,6 +370,7 @@ void Program5_DynamicArrays()
     int arraySize = 3;
     int itemCount = 0;
     // Allocate space for a dynamic array named "arr", of size "arraySize", which stores strings.
+    string* arr = new string[arraySize];
 
     cin.ignore();
 
@@ -263,7 +384,7 @@ void Program5_DynamicArrays()
         cout << "ARRAY CONTENTS:" << endl;
         for ( int i = 0; i < itemCount; i++ )
         {
-            // TODO
+            cout << i << ". " << arr[i] << endl;
         }
         cout << endl << endl;
 
@@ -278,7 +399,8 @@ void Program5_DynamicArrays()
         else
         {
             // Add a new item to the array, increment itemCount
-            // TODO
+            arr[itemCount] = text;
+            itemCount++;
         }
 
         // Check if full, resize if so
@@ -287,26 +409,36 @@ void Program5_DynamicArrays()
             cout << "* NEED TO RESIZE" << endl;
             int newSize = arraySize + 3;
             // TODO
+            string* biggerArray = new string[newSize];
 
             cout << "* COPY DATA FROM OLD ARRAY TO NEW ARRAY" << endl;
             for ( int i = 0; i < arraySize; i++ )
             {
             // TODO
+                for (int i = 0; i < arraySize; i++)
+                {
+                    cout << "  * Copying " << arr[i] << "..." << endl;
+                    biggerArray[i] = arr[i];
+                }
             }
 
             cout << "* FREE THE OLD MEMORY" << endl;
             // TODO
+            delete[] arr;
 
             cout << "* UPDATE POINTER TO NEW MEMORY" << endl;
             // TODO
+            arr = biggerArray;
 
             cout << "* UPDATE ARRAYSIZE" << endl;
             // TODO
+            arraySize = newSize;
         }
     }
 
     cout << endl << "FREE REMAINING MEMORY BEFORE LEAVING!!" << endl;
     // Deallocate memory before the pointer goes out of scope
+    delete[] arr;
 }
 
 void Program6_UniquePointers()
@@ -323,6 +455,79 @@ void Program6_UniquePointers()
     cout << endl << "UNIQUE POINTERS" << endl << string( 80, '-' ) << endl;
 
     // Copy/paste the Program5_DynamicArrays code in here, we are going to modify it.
+
+    cout << endl << "DYNAMICALLY ALLOCATING MEMORY FOR ARRAYS" << endl << string(80, '-') << endl;
+
+    int arraySize = 3;
+    int itemCount = 0;
+    // Allocate space for a dynamic array named "arr", of size "arraySize", which stores strings.
+
+    unique_ptr<string[]> arr = unique_ptr<string[]>(new string[arraySize]);
+
+    cin.ignore();
+
+    bool done = false;
+    while (!done)
+    {
+        cout << endl << string(40, '-') << endl;
+
+        // Display array information
+        cout << "ARRAY SIZE: " << arraySize << ", ITEM COUNT: " << itemCount << endl;
+        cout << "ARRAY CONTENTS:" << endl;
+        for (int i = 0; i < itemCount; i++)
+        {
+            cout << i << ". " << arr[i] << endl;
+        }
+        cout << endl << endl;
+
+        cout << "Enter a new item to add, or QUIT to quit: ";
+        string text;
+        getline(cin, text);
+
+        if (text == "QUIT")
+        {
+            done = true;
+        }
+        else
+        {
+            // Add a new item to the array, increment itemCount
+            arr[itemCount] = text;
+            itemCount++;
+        }
+
+        // Check if full, resize if so
+        if (itemCount == arraySize)
+        {
+            cout << "* NEED TO RESIZE" << endl;
+            int newSize = arraySize + 3;
+            // TODO
+            auto biggerArray = unique_ptr<string[]>(new string[newSize]);
+
+            cout << "* COPY DATA FROM OLD ARRAY TO NEW ARRAY" << endl;
+            for (int i = 0; i < arraySize; i++)
+            {
+                // TODO
+                for (int i = 0; i < arraySize; i++)
+                {
+                    cout << "  * Copying " << arr[i] << "..." << endl;
+                    biggerArray[i] = arr[i];
+                }
+            }
+
+
+            cout << "* UPDATE POINTER TO NEW MEMORY" << endl;
+            // TODO
+            auto arr = move( biggerArray);
+
+            cout << "* UPDATE ARRAYSIZE" << endl;
+            // TODO
+            arraySize = newSize;
+        }
+    }
+
+    // Deallocate memory before the pointer goes out of scope
+
+
 }
 
 void Program7_SharedPointers()
@@ -337,6 +542,37 @@ void Program7_SharedPointers()
     cout << endl << "SHARED POINTERS" << endl << string( 80, '-' ) << endl;
 
     // Copy/paste the Program4_DynamicVariables code in here, we are going to modify it.
+    cout << endl << "DYNAMICALLY ALLOCATING MEMORY FOR VARIABLES" << endl << string(80, '-') << endl;
+
+    cout << "CREATE NODES AND LINK THEM:" << endl;
+    cout << "* Create firstNode (A)" << endl;
+    // Allocate space for one Node object via a pointer. Set its data value to "A".
+    shared_ptr<SmartNode> firstNode = shared_ptr<SmartNode>(new SmartNode("A"));
+
+    cout << "* Create firstNode->ptrNext (B)" << endl;
+    // Allocate space for another Node object via the first node's ->ptrNext pointer. Set its data value to "B".
+    firstNode->ptrNext = shared_ptr<SmartNode>(new SmartNode("B"));
+
+    cout << "* Create firstNode->ptrNext->ptrNext (C)" << endl;
+    // Allocate space for another Node object via the first node's ->ptrNext->ptrNext pointer. Set its data value to "C.
+    firstNode->ptrNext->ptrNext = shared_ptr<SmartNode>(new SmartNode("C"));
+
+    cout << endl << "ITERATE THROUGH NODES:" << endl;
+    // Create a pointer named ptrCurrent to point to the existing firstNode.
+    // While ptrCurrent is not equal to nullptr, display the data of the current item (ptrCurrent->data),
+    // and then traverse forwards (ptrCurrent = ptrCurrent->ptrNext).
+
+    shared_ptr<SmartNode> ptrCurrent = firstNode;
+    while (ptrCurrent != nullptr)
+    {
+        cout << ptrCurrent->data << endl;
+        ptrCurrent = ptrCurrent->ptrNext;
+    }
+
+    cout << endl << "Press ENTER to continue." << endl;
+    string a;
+    cin.ignore();
+    getline(cin, a);
 }
 
 void Program8_TextAdventureMap()
@@ -344,6 +580,9 @@ void Program8_TextAdventureMap()
     cout << endl << "TEXT ADVENTURE MAP" << endl << string( 80, '-' ) << endl;
 
     // Create a set of shared_ptrs to Zone objects
+    auto zone1 = shared_ptr<Zone>(new Zone());
+    auto zone2 = shared_ptr<Zone>(new Zone());
+
 
     // Point Zones to their neighbors
 
