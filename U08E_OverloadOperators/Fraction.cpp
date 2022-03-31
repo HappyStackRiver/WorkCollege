@@ -2,109 +2,189 @@
 
 Fraction::Fraction()
 {
+    m_num = 1;
+    m_denom = 1;
 }
 
 Fraction::Fraction( int num, int denom )
 {
+    m_num = num;
+    m_denom = denom;
 }
 
 Fraction::Fraction( const Fraction& other )
 {
+    m_num = other.m_num;
+    m_denom = other.m_denom;
 }
 
 void Fraction::Set( int num, int denom )
 {
+    m_num = num;
+    m_denom = denom;
 }
 
 void Fraction::SetNumerator( int num )
 {
+    m_num = num;
 }
 
 int Fraction::GetNumerator() const
 {
-    return 1; // TODO: Replace me (placeholder)
+    return m_num; // TODO: Replace me (placeholder)
 }
 
 void Fraction::SetDenominator( int denom )
 {
+    if (denom != 0)
+    {
+        m_denom = denom;
+    }
 }
 
 int Fraction::GetDenominator() const
 {
-    return 1; // TODO: Replace me (placeholder)
+    return m_denom; // TODO: Replace me (placeholder)
 }
 
 float Fraction::GetDecimal() const
 {
-    return 1; // TODO: Replace me (placeholder)
+    return (float)m_num/(float)m_denom; // TODO: Replace me (placeholder)
 }
 
 Fraction Fraction::CommonDenominatorize( const Fraction& other ) const
 {
-    return Fraction(); // TODO: Replace me (placeholder)
+    Fraction common(*this * Fraction(other.GetDenominator(), other.GetDenominator()));
+    return common;
 }
 
-Fraction& Fraction::operator=( const Fraction& rhs )
+Fraction& Fraction::operator=(const Fraction& rhs)
 {
-    return *this; // TODO: Replace me (placeholder)
+    if (this == &rhs)
+    {
+        return *this;
+    }
+    
+    SetNumerator(rhs.GetNumerator());
+    SetDenominator(rhs.GetDenominator());
+    
+        return *this; // TODO: Replace me (placeholder)
 }
 
 Fraction operator+( const Fraction& left, const Fraction& right )
 {
-    return Fraction(); // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    return Fraction(commonLeft.GetNumerator() + commonRight.GetNumerator(), commonLeft.GetDenominator()); // TODO: Replace me (placeholder)
 }
 
 Fraction operator-( const Fraction& left, const Fraction& right )
 {
-    return Fraction(); // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    return Fraction(commonLeft.GetNumerator() - commonRight.GetNumerator(), commonLeft.GetDenominator()); // TODO: Replace me (placeholder)
 }
 
 Fraction operator*( const Fraction& left, const Fraction& right )
 {
-    return Fraction(); // TODO: Replace me (placeholder)
+    return Fraction(left.GetNumerator()*right.GetNumerator(), left.GetDenominator()*right.GetDenominator()); // TODO: Replace me (placeholder)
 }
 
 Fraction operator/( const Fraction& left, const Fraction& right )
 {
-    return Fraction(); // TODO: Replace me (placeholder)
+    return Fraction(left.GetNumerator()*right.GetDenominator(), left.GetDenominator()*right.GetNumerator()); // TODO: Replace me (placeholder)
 }
 
 bool operator==( const Fraction& left, const Fraction& right )
 {
-    return false; // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    if (commonLeft.GetNumerator() == commonRight.GetNumerator() && commonLeft.GetDenominator() == commonRight.GetDenominator())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    } // TODO: Replace me (placeholder)
 }
 
 bool operator!=( const Fraction& left, const Fraction& right )
 {
-    return false; // TODO: Replace me (placeholder)
+    return !(left == right); // TODO: Replace me (placeholder)
 }
 
 bool operator<( const Fraction& left, const Fraction& right )
 {
-    return false; // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    if (commonLeft.GetNumerator() < commonRight.GetNumerator())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    } // TODO: Replace me (placeholder)
 }
 
 bool operator>( const Fraction& left, const Fraction& right )
 {
-    return false; // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    if (commonLeft.GetNumerator() > commonRight.GetNumerator())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    } // TODO: Replace me (placeholder)
 }
 
 bool operator<=( const Fraction& left, const Fraction& right )
 {
-    return false; // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    if (commonLeft.GetNumerator() <= commonRight.GetNumerator())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    } // TODO: Replace me (placeholder)
 }
 
 bool operator>=( const Fraction& left, const Fraction& right )
 {
-    return false; // TODO: Replace me (placeholder)
+    Fraction commonLeft = left.CommonDenominatorize(right);
+    Fraction commonRight = right.CommonDenominatorize(left);
+
+    if (commonLeft.GetNumerator() >= commonRight.GetNumerator())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    } // TODO: Replace me (placeholder)
 }
 
-ostream& operator<<( ostream& out, const Fraction& item )
+ostream& operator<<( ostream& out, const Fraction& item)
 {
-    return out; // TODO: Replace me (placeholder)
+    out << item.m_num << "/" << item.m_denom;
+    return out;
 }
 
-istream& operator>>( istream& in, Fraction& item )
+istream& operator>>( istream& in, Fraction& item)
 {
-    return in; // TODO: Replace me (placeholder)
+    in >> item.m_num >> item.m_denom;
+    return in;
 }
