@@ -27,13 +27,13 @@
     <ClInclude Include="Program.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QueueOrder.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CsvParser.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Helper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Driver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,6 +53,9 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="Restaurants.csv">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Drivers.csv">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
