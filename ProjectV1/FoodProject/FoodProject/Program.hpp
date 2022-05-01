@@ -5,13 +5,14 @@
 #include <fstream>
 #include <map>
 #include <chrono>
+#include <fstream>
 
-#include "Customer.hpp"
-#include "Restaurant.hpp"
+#include "Customer.h"
+#include "Restaurant.h"
 #include "Order.hpp"
 #include "Driver.hpp"
 #include "CsvParser.hpp"
-
+#include "Meals.h"
 
 using namespace std;
 
@@ -28,6 +29,11 @@ class Program
 		void loadDataRestaurant();
 		void saveDataCustomer();
 		void saveDataRestaurant();
+		
+
+		void loadMealMenu(string);
+		void saveMealMenu(string);
+
 
 		void loadDataDriver();//new driver stuff
 		void saveDataDriver();//new driver stuff
@@ -51,6 +57,7 @@ class Program
 
 		void viewAllOrders();
 		void currentOrder();
+		void viewMenu();
 
 		void viewCustomers();
 		void viewRestaurants();
@@ -68,6 +75,8 @@ class Program
 		queue <Order> m_driverHistory;
 		queue <Order> m_customerHistory;
 		queue <Order> m_allHistory;
+
+		map <int, Meals> m_meals;
 		int fee  = 5;
 		int pay = 2;
 
@@ -161,7 +170,48 @@ void Program::loadDataCust()
 
 
 }
+void Program::loadMealMenu(string input)
+{
+	CsvDocument doc;
+	string name;
+	int price;
+	int id;
+	try
+	{
+		doc = CsvParser::Parse(input +".csv");
+	}
+	catch (...)
+	{
+		// No Restaurant file; new customer list.
+		return;
+	}
 
+	Meals newMeal;
+
+	for (const auto& row : doc.rows)
+	{
+		for (int col = 0; col < row.size(); col++)
+		{
+			// What field are we looking at? Convert to the correct data type in our object.
+			if (doc.header[col] == "id") {
+				id = Helper::StringToInt(row[col]);
+				newMeal.setId(id);
+			}
+			else if (doc.header[col] == "name") {
+				name = row[col];
+				newMeal.setName(name);
+
+			}
+			else if (doc.header[col] == "price") {
+				price = Helper::StringToInt(row[col]);
+				newMeal.setPrice(price);
+			}
+
+			m_meals[newMeal.getIdMeal()] = newMeal;
+		}
+	}
+
+}
 void Program::loadDataRestaurant()
 {
 	CsvDocument doc;
@@ -169,7 +219,6 @@ void Program::loadDataRestaurant()
 	string name;
 	string address;
 	int id;
-	int price;
 
 	try
 	{
@@ -202,10 +251,6 @@ void Program::loadDataRestaurant()
 			else if (doc.header[col] == "address") {
 				address = row[col];
 				newRestaurant.setAddress(address);
-			}
-			else if (doc.header[col] == "price") {
-				price = Helper::StringToInt(row[col]);
-				newRestaurant.setPrice(price);
 			}
 		}
 
@@ -305,7 +350,6 @@ void Program::saveDataRestaurant()
 	doc.header.push_back("id");
 	doc.header.push_back("name");
 	doc.header.push_back("address");
-	doc.header.push_back("price");
 
 	for (const auto& restaurant : m_restaurants)
 	{
@@ -315,7 +359,6 @@ void Program::saveDataRestaurant()
 		cells.push_back(Helper::ToString(restaurant.second.getIdRest()));						 // ID
 		cells.push_back(restaurant.second.getName());                    // name
 		cells.push_back(restaurant.second.getAddress());				  // address
-		cells.push_back(Helper::ToString(restaurant.second.getPrice()));
 		doc.rows.push_back(cells);
 	}
 
@@ -345,11 +388,37 @@ void Program::saveDataDriver()
 	CsvParser::Save("Drivers.csv", doc);
 }
 
+void Program::saveMealMenu(string input)
+{
+	CsvDocument doc;
+	string name;
+
+
+	// Specify what the fields are in the document
+	doc.header.push_back("id");
+	doc.header.push_back("name");
+	doc.header.push_back("price");
+
+	for (const auto& meals : m_meals)
+	{
+		// Create a list of cells for one customer row entry
+		vector<string> cells;
+
+		cells.push_back(Helper::ToString(meals.second.getIdMeal()));						 // ID
+		cells.push_back(meals.second.getName());                    // name
+		cells.push_back(Helper::ToString(meals.second.getPrice()));
+		doc.rows.push_back(cells);
+	}
+
+	CsvParser::Save(input + ".csv", doc);
+}
+
+
 void Program::runAdmin()
 {
 	cout << "Enter the proper name of the Admin" << endl;
 	string nameVer;
-	cin >> nameVer;
+	std::cin >> nameVer;
 	if (nameVer != "Raymond")
 	{
 		cout << "Incorrect name" << endl;
@@ -367,9 +436,10 @@ void Program::runAdmin()
 		cout << "6. VIEW COMPLETED ORDER HISTORY" << endl;
 		cout << "7. SET DELIVERY FEE" << endl;
 		cout << "8. SET DRIVER PAYMENT" << endl;
+		cout << "9. EXPORT ALL INFORMATION" << endl;
 
 		int input;
-		cin >> input;
+		std::cin >> input;
 
 		switch (input)
 		{
@@ -387,7 +457,7 @@ void Program::runAdmin()
 			cout << "Restaurant editing" << endl;
 			cout << "Enter the ID of the restaurant you are editing" << endl;
 			int choice;
-			cin >> choice;
+			std::cin >> choice;
 			editRestaurant(choice)
 				; }
 		case 4:
@@ -404,19 +474,77 @@ void Program::runAdmin()
 		{
 			cout << "Enter the amount the new delivery fee" << endl;
 			int newFee;
-			cin >> newFee;
+			std::cin >> newFee;
 			fee = newFee;
 			cout << "The new fee updated"
 			; }
 		case 8:
 			cout << "Enter the amount the new delivery pay" << endl;
 			int newPay;
-			cin >> newPay;
+			std::cin >> newPay;
 			pay = newPay;
 			cout << "The new pay updated"
 				;
 
+		case 9:
+			cout << "EXPORTING ALL FILES ONTO TEXT FILES" << endl;
+			ofstream outdata;
+			outdata.open("Customer_files.txt");
+
+			outdata << "The following is all customers" << endl;
+			size_t size = m_customers.size();
+
+			for (const auto& customer : m_customers)
+			{
+				outdata << "Customer Name" << endl;
+				outdata << customer.second.getName() << endl;
+				outdata << "Customer Phone" << endl;
+				outdata << customer.second.getPhone() << endl;
+				outdata << "Customer Address" << endl;
+				outdata << customer.second.getAddress() << endl;
+			}
+
+			outdata.open("Driver_files.txt");
+			outdata << "The following is all drivers" << endl;
+			size_t size2 = m_drivers.size();
+
+			for (const auto& drivers : m_drivers)
+			{
+				outdata << "Driver Name" << endl;
+				outdata << drivers.second.getName() << endl;
+				outdata << "Driver ID" << endl;
+				outdata << drivers.second.getId() << endl << endl;
+			}
+
+			outdata.open("Restaurant_files.txt");
+			std::cout << "The following is all restaurants" << endl;
+			size_t size3 = m_restaurants.size();
+
+			for (const auto& restaurant : m_restaurants)
+			{
+				outdata << "Restaurant name" << endl;
+				outdata << restaurant.second.getName() << endl;
+				outdata << "Restaurant address" << endl;
+				outdata << restaurant.second.getAddress() << endl;
+				outdata << "Restaurant ID" << endl;
+				outdata << restaurant.second.getIdRest() << endl << endl;
+				loadMealMenu(restaurant.second.getName());
+
+				outdata << "---Restaurant menu---" << endl;
+				size_t size4 = m_meals.size();
+
+				for (const auto& meals : m_meals)
+				{
+					outdata << "ID: " << meals.second.getIdMeal() << endl;
+					outdata << "Meal: " << meals.second.getName() << endl;
+					outdata << "Price" << meals.second.getPrice() << endl << endl;
+				}
+				m_meals.clear();
+			}
+
 		}
+		
+
 	}
 
 }
@@ -430,7 +558,7 @@ void Program::viewAllOld()
 		std::cout << "No completed orders yet" << endl;
 		std::cout << "Press any key and enter" << endl;
 		string storage;
-		cin.ignore();
+		std::cin.ignore();
 		std::getline(std::cin, storage);
 		return;
 	}
@@ -440,16 +568,17 @@ void Program::viewAllOld()
 		std::cout << "Customer name: " << temp.front().customerloc->getName() << endl;
 		std::cout << "Customer Address: " << temp.front().customerloc->getName() << endl;
 		std::cout << "Restaurant: " << temp.front().restaurantloc->getName() << endl;
-		std::cout << "Price: " << temp.front().restaurantloc->getPrice() << endl;
+		loadMealMenu(temp.front().restaurantloc->getName());
+		std::cout << "Price: " << m_meals[temp.front().mealID].getPrice() << endl;
 		std::cout << "Fee: " << fee << endl;
 		std::cout << "Driver Pay: " << pay << endl;
-		std::cout << "Profit: " << temp.front().restaurantloc->getPrice() - fee - pay << endl << endl;
+		std::cout << "Profit: " <<  m_meals[temp.front().mealID].getPrice() - fee - pay << endl << endl;
 		temp.pop();
-
+		m_meals.clear();
 	}
 	std::cout << "Press any key and enter" << endl;
 	string storage;
-	cin.ignore();
+	std::cin.ignore();
 	std::getline(std::cin, storage);
 }
 
@@ -576,10 +705,17 @@ bool Program::logInDriver()
 void Program::addRestaurant()
 {
 	clearScreen();
+	CsvDocument doc;
 	string resName;
 	string resAddress;
 	int resId;
-	int resPrice;
+	bool done = false;
+
+
+	string menuItem;
+	int itemPrice;
+	int input;
+	int menuId = 1;
 
 	string end;
 	std::cin.ignore();
@@ -592,10 +728,33 @@ void Program::addRestaurant()
 	std::cout << "Enter the ID of the Restaurant:" << endl;
 	std::cin >> resId;
 
-	std::cout << "Enter the price of the Restaurant" << endl;
-	std::cin >> resPrice;
+	while (done == false)
+	{
+		std::cout << "Menu creation!" << endl;
+		std::cout << "Enter a menu item" << endl;
+		std::cin >> menuItem;
 
-	Restaurant newRestaurant(resName, resAddress, resId, resPrice);
+		std::cout << "Enter the item price" << endl;
+		std::cin >> itemPrice;
+
+		std::cout << "Menu Item Added!" << endl;
+		std::cout << "Would you like to continue adding items? Enter 0 for Yes, or 1 for no: ";
+		std::cin >> input;
+		while (input != 0 && input != 1)
+		{
+			std::cout << "Invalid input, try again. Enter 0 for Yes, or 1 for no";
+			std::cin >> input;
+		}
+
+		if (input == 1)
+		{
+			done = true;
+		}
+		menuId++;
+	}
+
+
+	Restaurant newRestaurant(resName, resAddress, resId);
 	m_restaurants[newRestaurant.getIdRest()] = newRestaurant;
 	std::cout << resName << " was successfully added!";
 	std::cout << endl << "Press any key to continue";
@@ -625,7 +784,7 @@ void Program::viewAllOrders()
 	}
 
 	string storage;
-	cin.ignore();
+	std::cin.ignore();
 	std::getline(std::cin, storage);
 }
 void Program::currentOrder()
@@ -645,7 +804,7 @@ void Program::currentOrder()
 		m_driverHistory.push(m_orders.front());
 		m_orders.pop();
 		std::cout << "Order complete, press Enter to continue";
-		cin.ignore();
+		std::cin.ignore();
 		string fill;
 		std::getline(std::cin, fill);
 		currentOrder();
@@ -671,7 +830,7 @@ void Program::viewCustomers()
 
 	std::cout << "Press any key and enter";
 	string temp;
-	cin.ignore();
+	std::cin.ignore();
 	std::getline(std::cin, temp);
 }
 void Program::viewRestaurants()
@@ -690,7 +849,7 @@ void Program::viewRestaurants()
 
 	std::cout << "Press any key and enter";
 	string temp;
-	cin.ignore();
+	std::cin.ignore();
 	std::getline(std::cin, temp);
 	runAdmin();
 }
@@ -702,7 +861,6 @@ void Program::viewDrivers()
 
 	for (const auto& drivers : m_drivers)
 	{
-		// customer.second
 		std::cout << drivers.second.getName() << endl;
 		std::cout << drivers.second.getId() << endl << endl;
 	}
@@ -710,10 +868,32 @@ void Program::viewDrivers()
 
 	std::cout << "Press any key and enter";
 	string temp;
-	cin.ignore();
+	std::cin.ignore();
 	std::getline(std::cin, temp);
 	runAdmin();
 }
+
+void Program::viewMenu()
+{
+	std::cout << "---Restaurant menu---" << endl;
+	size_t size = m_meals.size();
+
+	for (const auto& meals : m_meals)
+	{
+		// customer.second
+		std::cout << "ID: " << meals.second.getIdMeal() << endl;
+		std::cout << "Meal: " << meals.second.getName() << endl;
+		std::cout << "Price" << meals.second.getPrice() << endl << endl;
+	}
+
+
+	std::cout << "Press any key and enter";
+	string temp;
+	std::cin.ignore();
+	std::getline(std::cin, temp);
+	runAdmin();
+}
+
 
 void Program::logOutDriver()
 {
@@ -908,42 +1088,54 @@ void Program::editCustomer(int id)
 	saveDataCustomer();
 
 }
-
 void Program::editRestaurant(int id)
 {
 	clearScreen();
-	string name;
+	int newPrice;
 	string newAddress;
-	int price;
+	string newName;
 	if (m_restaurants.find(id) != m_restaurants.end())
 	{
+		loadMealMenu(m_restaurants[id].getName());
 		cout << "What would you like to change about the restaurant?" << endl;
-		cout << "If you would like to change the name, press 1" << endl;
-		cout << "If you would like to change the restaurant price, press 2" << endl;
-		cout << "If you would like to change the restaurant address, press 3" << endl;
+		cout << "If you would like to change the restaurant address, press 1" << endl;
+		cout << "If you would like to change the restaurant menu, press 2" << endl;
 		int input;
-		cin >> input;
+
+		int inputSecond;
+		int inputThird;
+
+		std::cin >> input;
 		switch (input)
 		{
 		case 1:
-		{
-			cout << "Enter new name as a string" << endl;
-			cin.ignore();
-			getline(cin, name);
-			m_restaurants[id].setName(name);
-			break;
-		}
-		case 2:
-		{
-			cout << "Enter new price as an integer" << endl;
-			std::cin >> price;
-			m_restaurants[id].setPrice(price);
-			break;
-		}
-		case 3:
 			std::cout << "Enter new address as a string" << endl;
 			std::cin >> newAddress;
 			m_restaurants[id].setAddress(newAddress);
+			break;
+		case 2:
+			std::cout << "Edit meal menu" << endl;
+			viewMenu();
+			std::cout << "Which meal would you like to alter? Enter it's ID: ";
+			std::cin >> inputSecond;
+			std::cout << "If you would like to alter the name, or the price? Enter 0 for the name, or 1 for the price: ";
+			std::cin >> inputThird;
+			switch (inputThird)
+			{
+				case 0:
+					std::cout << "Enter the new name" << endl;
+					std::cin >> newName;
+					m_meals[inputSecond].setName(newName);
+					std::cout << "Name updated!";
+					break;
+				case 1:
+					std::cout << "Enter the new price" << endl;
+					std::cin >> newPrice;
+					m_meals[inputSecond].setPrice(newPrice);
+					std::cout << "Price updated!";
+					break;
+			}
+
 			break;
 		}
 	}
@@ -952,6 +1144,8 @@ void Program::editRestaurant(int id)
 		cout << "Restaurant ID not Valid" << endl;
 	}
 	saveDataRestaurant();
+	saveMealMenu(m_restaurants[id].getName());
+	m_meals.clear();
 	runAdmin();
 
 }
@@ -961,10 +1155,15 @@ void Program::addOrder(int location, int restID)
 	Order newOrder;
 	newOrder.customerloc = &m_customers[location];
 	newOrder.restaurantloc = &m_restaurants[restID];
-
+	int meal;
+	loadMealMenu(m_restaurants[restID].getName());
+	viewMenu();
+	std::cout << "Enter the ID of the meal you would like: ";
+	std::cin >> meal;
+	newOrder.mealID = meal;
 	m_orders.push(newOrder);
 	m_specificOrders.push(newOrder);
-
+	m_meals.clear();
 	std::cout << "Order Added" << endl;
 }
 
@@ -984,15 +1183,17 @@ void Program::viewCustOrders()
 		std::cout << "Customer name: " << temp.front().customerloc->getName() << endl;
 		std::cout << "Customer Address: " << temp.front().customerloc->getName() << endl;
 		std::cout << "Restaurant: " << temp.front().restaurantloc->getName() << endl;
-		std::cout << "Meal Price: $" << temp.front().restaurantloc->getPrice() << endl;
+		loadMealMenu(temp.front().restaurantloc->getName());
+		std::cout << "Meal Price: $" << m_meals[temp.front().mealID].getPrice() << endl;
 		std::cout << "Fee: $" << fee << endl;
-		std::cout << "Total: $" << (temp.front().restaurantloc->getPrice()) + fee << endl;
+		std::cout << "Total: $" << (m_meals[temp.front().mealID].getPrice()) + fee << endl;
 		temp.pop();
+		m_meals.clear();
 
 	}
 
 	string storage;
-	cin.ignore();
+	std::cin.ignore();
 	std::getline(std::cin, storage);
 	runAdmin();
 }

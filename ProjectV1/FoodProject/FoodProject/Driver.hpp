@@ -13,6 +13,7 @@ class Driver
 private:
 	string driverName;
 	int driverId;
+	queue<Order> historyDriver;
 
 public:
 	Driver();//default constructor
@@ -26,10 +27,7 @@ public:
 	void setName(string);
 	void setId(int);
 	//setter functions to set the 
-	queue<Order> history;
 };
-
-
 Driver::Driver()
 {
 	driverName = "";

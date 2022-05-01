@@ -140,21 +140,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CsvParser.hpp" />
-    <ClInclude Include="Customer.hpp" />
+    <ClInclude Include="Customer.h" />
     <ClInclude Include="Driver.hpp" />
     <ClInclude Include="Helper.hpp" />
+    <ClInclude Include="Meals.h" />
     <ClInclude Include="Order.hpp" />
     <ClInclude Include="Program.hpp" />
-    <ClInclude Include="Restaurant.hpp" />
+    <ClInclude Include="Restaurant.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CsvParser.cpp" />
+    <ClCompile Include="Customer.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="Meals.cpp" />
+    <ClCompile Include="Restaurant.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Burger World.csv" />
     <None Include="Customers.csv" />
     <None Include="Drivers.csv" />
+    <None Include="Philly Cheese.csv" />
     <None Include="Restaurants.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Restaurant.hpp">
+    <ClInclude Include="Restaurant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Order.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Customer.hpp">
+    <ClInclude Include="Customer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Program.hpp">
@@ -36,6 +36,9 @@
     <ClInclude Include="Driver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Meals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -47,6 +50,15 @@
     <ClCompile Include="Helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Customer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Restaurant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Meals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Customers.csv">
@@ -56,6 +68,12 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="Drivers.csv">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Philly Cheese.csv">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Burger World.csv">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
